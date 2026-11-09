@@ -58,7 +58,7 @@ if uploaded is not None:
             ax.set_ylabel("Fold change (2^-ΔΔCt)")
             ax.axhline(1, linestyle="--", color="gray")
             ax.set_yscale("log", base=2)
-            ax.set_title("점: 생물학적 시료, 검은 선: 기하평균")
+            ax.set_title("Dots: biological samples; black bars: geometric mean")
             fig.tight_layout()
             st.pyplot(fig)
             plt.close(fig)
