@@ -22,7 +22,9 @@ if uploaded is not None:
         if not genes or not conditions:
             raise QPCRInputError("Gene 또는 Condition 값이 없습니다.")
         reference = st.selectbox("기준 유전자", genes)
-        control = st.selectbox("대조군 조건", conditions)
+        default_control = next((i for i, name in enumerate(conditions) if name.lower() in {"mock", "control", "untreated"}), 0)
+        control = st.selectbox("대조군 조건", conditions, index=default_control)
+        st.info(f"현재 대조군: {control} — 그래프에서 이 조건의 기하평균이 1입니다. 분석 전에 확인하세요.")
         max_sd = st.number_input("기술 반복 Ct SD 허용 상한", min_value=0.01, value=0.30, step=0.05)
         min_reps = st.number_input("시료·유전자별 최소 기술 반복 수", min_value=2, value=2, step=1)
         st.dataframe(data.head(20), hide_index=True)
